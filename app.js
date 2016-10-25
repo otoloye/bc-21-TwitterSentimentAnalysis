@@ -32,20 +32,24 @@ rl.question('Want to get sentiment analysis from your tweets? (yes/no) : ', (ans
     if (answer == "yes") {
         rl.question('Please enter the twitter handle you wish to perform sentiment analysis for :  ', (handle) => {
 
+            rl.question('Number how many tweets do you ish to anayse :  ', (count) => {
+
             var options = {
                 screen_name: handle,
-                count: 5,
+                count: count,
+            
             };
 
-            /**
-    * REST API : we simply need to pass the endpoint and parameters to the methods
-   */
+                 /**
+                * REST API : we simply need to pass the endpoint and parameters to the methods
+                */
 
             client.get('statuses/user_timeline', options, function (err, data, response) {
                 if (err) {
-                    console.log(err);
+                    console.log('Please check your internet and try again');
+                    return;
                 }
-                console.log(err, data, response.body);
+               // console.log(err, data, response.body);
                 var WordCount = 0
                 var tweet = "";
                 for (var i = 0; i < data.length; i++) {
@@ -56,19 +60,26 @@ rl.question('Want to get sentiment analysis from your tweets? (yes/no) : ', (ans
 
                 }
 
-                var frequency = {};
+                var frequency = {};                
                 tweet.toLowerCase().replace(/[^a-z\s]/g, '').split(' ').forEach(function (word) {
-                    if (!['and', 'the', ' '].includes(word)) {
+                    if (!['and', 'the', ' ',''].includes(word)) {
                         if (frequency[word]) {
                             frequency[word] += 1;
                         } else {
                             frequency[word] = 1;
                         }
                     }
-                })
-
-                console.log(frequency);
-
+                })                
+                var valueSorted = [];
+                for (var value in frequency)
+                    valueSorted.push([value, frequency[value]])
+                    valueSorted.sort(
+                        function(a,b) {
+                            return b[1]-a[1]
+                        })
+                        
+                        console.log(valueSorted);
+                
                 rl.question("Search for particular word : ", function (word) {
                     tweet.split(" ").map(function (val) {
                         if (val.indexOf(word) > -1) {
@@ -99,7 +110,7 @@ rl.question('Want to get sentiment analysis from your tweets? (yes/no) : ', (ans
                 });
             });
 
-
+        });
         });
     }
     else if (answer == "no") {
