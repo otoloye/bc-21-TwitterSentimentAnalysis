@@ -59,6 +59,7 @@ rl.question('Want to get sentiment analysis from your tweets? (yes/no) : ', (ans
                     var tweet = "";
                     for (var i = 0; i < data.length; i++) {
                         var perc = i + 1;
+                        //.text returns the tweet instead of return all the json params                        
                         console.log('\nTweets ' + '=====> ' + data[i].text + '\n');
                         tweet += data[i].text;
                         console.log('percentage ' + '=====> ' + perc / data.length * 100 + '%');
