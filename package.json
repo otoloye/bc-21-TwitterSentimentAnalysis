@@ -15,6 +15,10 @@
   ],
   "author": "Otoloye Oyeniran",
   "license": "ISC",
+  "preferGlobal": true,
+  "bin": {
+    "twitter-sentiment-analysis": "app.js"
+  },
   "bugs": {
     "url": "https://github.com/otoloye/bc-21-TwitterSentimentAnalysis/issues"
   },

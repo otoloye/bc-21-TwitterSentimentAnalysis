@@ -1,3 +1,6 @@
+#! /usr/bin/env node
+
+
 //The node.js "util" module provides "utility" functions
 
 module.exports = class { };
